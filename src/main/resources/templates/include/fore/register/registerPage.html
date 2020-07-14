@@ -1,11 +1,13 @@
 <!--注册包含页-->
 <div th:fragment="html" xmlns:th="http://www.w3.org/1999/xhtml">
     <script>
+        'use strict'
         $(function(){
+            debugger
             var data4Vue = {
                 uri:'fore_register',
                 result: [],
-                user:{name:'', password:'', repeatpassword:''}
+                user:{name:'', password:'', repeatpassword:'',verificationCode:''}
             };
             //ViewModel
             var vue = new Vue({
@@ -40,15 +42,33 @@
 
                         axios.post(url,this.user).then(function(response) {
                             var result = response.data;
+                            debugger
+                            var ran = result.data;
                             if(result.code==0){
                                 location.href="registerSuccess";
                             }
                             else{
                                 $("span.errorMessage").html(result.message);
                                 $("div.registerErrorMessageDiv").css("visibility","visible");
+                                $("#img").attr('src','img/verificationcode/'+ran+'.png');
                             }
                         });
-                    }
+                    },
+
+                    //刷新验证码
+                    reloadCode:function () {
+                        let url = "fore_verificationCode";
+                        axios.post(url).then(function(response) {
+                            debugger
+                            var result = response.data;
+                            var ran = result.data;
+                            if(result.code==0){
+                                debugger
+                                $("#img").attr('src','img/verificationcode/'+ran+'.png'); //加上这句话可以解决验证码不刷新
+                            }
+                        });
+                    },
+
                 }
             });
         })
@@ -63,6 +83,7 @@
 
 
         <table class="registerTable" align="center">
+            <h1>${ran}</h1>
             <tr>
                 <td  class="registerTip registerTableLeftTD">设置会员名</td>
                 <td></td>
@@ -82,6 +103,13 @@
             <tr>
                 <td class="registerTableLeftTD">密码确认</td>
                 <td class="registerTableRightTD"><input v-model="user.repeatpassword"   type="password"  placeholder="请再次输入你的密码" > </td>
+            </tr>
+            <tr>
+                <td class="registerTableLeftTD">验证码</td>
+                <td class="registerTableRightTD"><input v-model="user.verificationCode"  placeholder="请输入验证码" ></td>
+                <td><img style=" border: 2px solid #76fdff;" src="img/verificationcode/${ran}.png" @click="reloadCode" id="img"><br><br>
+                    <span style="font-size: 1em;color: #1f76ff;">单击图片刷新</span>
+                </td>
             </tr>
 
             <tr>

@@ -1,15 +1,21 @@
 package com.tanghs.tmall.web;
- 
+
 import com.tanghs.tmall.comparator.*;
+import com.tanghs.tmall.hutool.VerificationCode;
 import com.tanghs.tmall.pojo.*;
 import com.tanghs.tmall.service.*;
+import com.tanghs.tmall.temporaryvariable.CodeVariable;
 import com.tanghs.tmall.util.Result;
+
+import org.apache.commons.lang.StringUtils;
 import org.apache.commons.lang.math.RandomUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.util.HtmlUtils;
 
+import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpSession;
+import java.io.IOException;
 import java.text.SimpleDateFormat;
 import java.util.*;
 
@@ -32,6 +38,7 @@ public class ForeRESTController {
     OrderItemService orderItemService;
     @Autowired
     OrderService orderService;
+
     /**
      * @Author tanghs
      * @Description: 首页展示
@@ -54,7 +61,19 @@ public class ForeRESTController {
      * @Version 1.0
      */
     @PostMapping("/fore_register")
-    public Object register(@RequestBody User user){
+    public Object register(@RequestBody User user,HttpServletRequest request) throws IOException {
+        String message = null;
+        String verificationCode = user.getVerificationCode();
+        if(StringUtils.isEmpty(verificationCode) && StringUtils.isBlank(verificationCode)){
+            message = "验证码不允许为空!";
+            Integer ran = VerificationCode.test2(request);     //刷新验证码
+            return  Result.fail(message,ran);
+        }
+        if(!CodeVariable.VERIFICATION_CODE.equals(verificationCode)){
+            Integer ran = VerificationCode.test2(request);     //刷新验证码
+            message = "验证码错误!";
+            return  Result.fail(message,ran);
+        }
         String name = user.getName();
         System.out.println(name);
         String passWord = user.getPassword();
@@ -62,13 +81,24 @@ public class ForeRESTController {
         user.setName(name);
         boolean isExist = userService.isExist(name);
         if(isExist){
-            String message = "该用户名已被使用，请更换！";
-            return  Result.fail(message);               //返回相关错误消息
+             Integer ran = VerificationCode.test2(request);     //刷新验证码
+             message = "该用户名已被使用，请更换！";
+             return  Result.fail(message,ran);               //返回相关错误消息
         }
         user.setPassword(passWord);
         userService.add(user);
         return Result.success();
     }
+
+    @PostMapping("/fore_verificationCode")   //创建圆圈干扰的验证码
+    public Object test2(HttpServletRequest request)throws IOException {
+        Integer ran = VerificationCode.test2(request);
+        return Result.success(ran);
+    }
+
+
+
+
 
     //1. 账号密码注入到 userParam 对象上
     //2. 把账号通过HtmlUtils.htmlEscape进行转义

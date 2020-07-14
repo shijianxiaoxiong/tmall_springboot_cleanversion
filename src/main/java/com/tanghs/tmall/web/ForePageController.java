@@ -1,14 +1,20 @@
 package com.tanghs.tmall.web;
  
+import com.tanghs.tmall.hutool.VerificationCode;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.ResponseBody;
+import org.springframework.web.servlet.ModelAndView;
 
+import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpSession;
+import java.io.IOException;
+import java.util.Map;
 
 //用于页面跳转，页面跳转和数据获取分离开来，便于后期维护
 @Controller
 public class ForePageController {
-
 
     @GetMapping(value="/")                                              //首页_跳转
     public String index(){
@@ -18,8 +24,13 @@ public class ForePageController {
     public String home(){ return "fore/home"; }
 
 
-    @GetMapping(value="/register")                                      //注册页_跳转
-    public String register(){ return "fore/register"; }
+    @GetMapping(value="/register")               //注册页_跳转
+    public ModelAndView register(HttpServletRequest request,
+                                 Map<String, Object> map) throws IOException {
+        Integer ran = VerificationCode.test2(request);    //进入注册页面即刷新验证码
+        map.put("ran",ran);
+        return new ModelAndView("fore/register",map);
+    }
 
 
     @GetMapping(value="/registerSuccess")                               //注册成功页_跳转

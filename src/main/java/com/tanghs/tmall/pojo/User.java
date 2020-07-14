@@ -30,6 +30,8 @@ public class User {
      //anonymousName没有和数据库关联，用于获取匿名，其实就是前后保留，中间换成星星，如果长度只有2或者1，单独处理一下
     @Transient
     private String anonymousName;
+    @Transient
+    private String verificationCode;        //不放入数据库,验证码
 
     public String getAnonymousName(){
         if(null!=anonymousName)
