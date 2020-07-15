@@ -56,7 +56,6 @@
         }
 
         $(function(){
-
             var data4Vue = {
                 uri:'fore_home',
                 categories: []
@@ -79,7 +78,13 @@
                                 homePageRegisterListeners();
                             })
                         });
-                    }
+                    },
+                    jump: function(page){
+                        jump(page,vue); //定义在adminHeader.html 中
+                    },
+                    jumpByNumber: function(start){
+                        jumpByNumber(start,vue);
+                    },
                 },
                 filters:{
                     subTitleFilter:function(value) {
@@ -96,6 +101,7 @@
     <div class="homepageDiv">
         <div th:replace="include/fore/home/categoryAndcarousel::html" ></div>
         <div th:replace="include/fore/home/homepageCategoryProducts::html" ></div>
+        <div th:replace="include/fore/home/forePage::html" ></div>
     </div>
 </div>
 

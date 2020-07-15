@@ -51,7 +51,8 @@
                             else{
                                 $("span.errorMessage").html(result.message);
                                 $("div.registerErrorMessageDiv").css("visibility","visible");
-                                $("#img").attr('src','img/verificationcode/'+ran+'.png');
+                                $("#img").prop('src','img/verificationcode/'+ran+'.png');
+                                $("#verificationCode").prop('value','');
                             }
                         });
                     },
@@ -59,12 +60,11 @@
                     reloadCode:function () {
                         let url = "fore_verificationCode";
                         axios.post(url).then(function(response) {
-                            debugger
                             var result = response.data;
                             var ran = result.data;
                             if(result.code==0){
-                                debugger
-                                $("#img").attr('src','img/verificationcode/'+ran+'.png'); //加上这句话可以解决验证码不刷新
+                                $("#img").prop('src','img/verificationcode/'+ran+'.png'); //加上这句话可以解决验证码不刷新
+                                $("#verificationCode").prop('value','');
                             }
                         });
                     },
@@ -105,8 +105,8 @@
             </tr>
             <tr>
                 <td class="registerTableLeftTD">验证码</td>
-                <td class="registerTableRightTD"><input v-model="user.verificationCode"  placeholder="请输入验证码" ></td>
-                <td><img style=" border: 2px solid #76fdff;" src="" @click="reloadCode" id="img"><br><br>
+                <td class="registerTableRightTD"><input id="verificationCode" placeholder="请输入验证码" /></td>
+                <td><img style=" border: 2px solid #76fdff;" @click="reloadCode" id="img"><br><br>
                     <span style="font-size: 1em;color: #1f76ff;">单击图片刷新</span>
                 </td>
             </tr>

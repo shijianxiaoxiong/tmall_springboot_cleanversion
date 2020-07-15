@@ -39,8 +39,8 @@ public class VerificationCode {
         File imageFolder= new File(request.getServletContext().getRealPath("img/verificationcode"));
         File file = new File(imageFolder,ran+".png");
         CircleCaptcha captcha = CaptchaUtil.createCircleCaptcha(width, height, codeCount, circleCount);
-        System.out.println("当前验证码:"+ran);
-        System.out.println("圆圈干扰验证码是" + captcha.getCode());
+        System.out.println("当前验证码图片名:"+ran);
+        System.out.println("圆圈干扰验证码是:" + captcha.getCode());
         CodeVariable.VERIFICATION_CODE = captcha.getCode();          //存入临时变量
         /* String path = "d:/captcha2.png";*/
         captcha.write(file);
