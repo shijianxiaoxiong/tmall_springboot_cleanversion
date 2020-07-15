@@ -25,12 +25,7 @@ public class ForePageController {
 
 
     @GetMapping(value="/register")               //注册页_跳转
-    public ModelAndView register(HttpServletRequest request,
-                                 Map<String, Object> map) throws IOException {
-        Integer ran = VerificationCode.test2(request);    //进入注册页面即刷新验证码
-        map.put("ran",ran);
-        return new ModelAndView("fore/register",map);
-    }
+    public String register(){ return "fore/register"; }
 
 
     @GetMapping(value="/registerSuccess")                               //注册成功页_跳转

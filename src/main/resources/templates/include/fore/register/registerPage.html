@@ -14,16 +14,17 @@
                 el: '#workingArea',
                 data: data4Vue,
                 mounted:function(){
+                    this.reloadCode();
                     linkDefaultActions();
                 },
                 methods: {
-                            register:function(){
-                                var url =  this.uri;
-                                if(0==this.user.name.length){
-                                    $("span.errorMessage").html("请输入用户名");
-                                    $("div.registerErrorMessageDiv").css("visibility","visible");
-                                    return;
-                                }
+                    register:function(){
+                        var url =  this.uri;
+                        if(0==this.user.name.length){
+                            $("span.errorMessage").html("请输入用户名");
+                            $("div.registerErrorMessageDiv").css("visibility","visible");
+                            return;
+                        }
                         if(0==this.user.password.length){
                             $("span.errorMessage").html("请输入密码");
                             $("div.registerErrorMessageDiv").css("visibility","visible");
@@ -54,7 +55,6 @@
                             }
                         });
                     },
-
                     //刷新验证码
                     reloadCode:function () {
                         let url = "fore_verificationCode";
@@ -83,7 +83,6 @@
 
 
         <table class="registerTable" align="center">
-            <h1>${ran}</h1>
             <tr>
                 <td  class="registerTip registerTableLeftTD">设置会员名</td>
                 <td></td>
@@ -107,7 +106,7 @@
             <tr>
                 <td class="registerTableLeftTD">验证码</td>
                 <td class="registerTableRightTD"><input v-model="user.verificationCode"  placeholder="请输入验证码" ></td>
-                <td><img style=" border: 2px solid #76fdff;" src="img/verificationcode/${ran}.png" @click="reloadCode" id="img"><br><br>
+                <td><img style=" border: 2px solid #76fdff;" src="" @click="reloadCode" id="img"><br><br>
                     <span style="font-size: 1em;color: #1f76ff;">单击图片刷新</span>
                 </td>
             </tr>
