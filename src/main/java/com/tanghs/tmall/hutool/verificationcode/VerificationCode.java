@@ -1,12 +1,8 @@
-package com.tanghs.tmall.hutool;
+package com.tanghs.tmall.hutool.verificationcode;
 
-import cn.hutool.captcha.CaptchaUtil;
-import cn.hutool.captcha.CircleCaptcha;
 import cn.hutool.captcha.LineCaptcha;
 import cn.hutool.captcha.ShearCaptcha;
 import com.tanghs.tmall.temporaryvariable.CodeVariable;
-import lombok.Data;
-import org.apache.commons.lang.StringUtils;
 
 import javax.servlet.http.HttpServletRequest;
 import java.io.BufferedInputStream;
@@ -52,7 +48,7 @@ public class VerificationCode {
         CodeVariable.VERIFICATION_CODE_IMAGE_NAME = ran;      //将图片名称存入临时变量
         File imageFolder = new File(request.getServletContext().getRealPath("img/verificationcode"));
         File file = new File(imageFolder,ran+".png");
-
+        CaptchaUtil.createCircleCaptcha(width, height, codeCount, circleCount);
         CircleCaptcha captcha = CaptchaUtil.createCircleCaptcha(width, height, codeCount, circleCount);
         System.out.println("当前验证码图片名:"+ran);
         System.out.println("圆圈干扰验证码是:" + captcha.getCode());

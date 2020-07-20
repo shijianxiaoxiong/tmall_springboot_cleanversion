@@ -1,13 +1,12 @@
 package com.tanghs.tmall.web;
 
 import com.tanghs.tmall.comparator.*;
-import com.tanghs.tmall.hutool.VerificationCode;
+import com.tanghs.tmall.hutool.verificationcode.VerificationCode;
 import com.tanghs.tmall.pojo.*;
 import com.tanghs.tmall.service.*;
 import com.tanghs.tmall.temporaryvariable.CodeVariable;
 import com.tanghs.tmall.util.Result;
 
-import org.apache.commons.lang.StringUtils;
 import org.apache.commons.lang.math.RandomUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;

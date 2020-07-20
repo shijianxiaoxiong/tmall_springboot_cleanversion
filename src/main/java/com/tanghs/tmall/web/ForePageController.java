@@ -1,16 +1,9 @@
 package com.tanghs.tmall.web;
  
-import com.tanghs.tmall.hutool.VerificationCode;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.ResponseBody;
-import org.springframework.web.servlet.ModelAndView;
 
-import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpSession;
-import java.io.IOException;
-import java.util.Map;
 
 //用于页面跳转，页面跳转和数据获取分离开来，便于后期维护
 @Controller
