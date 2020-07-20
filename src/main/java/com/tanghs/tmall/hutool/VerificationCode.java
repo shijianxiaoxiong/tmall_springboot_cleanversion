@@ -6,9 +6,12 @@ import cn.hutool.captcha.LineCaptcha;
 import cn.hutool.captcha.ShearCaptcha;
 import com.tanghs.tmall.temporaryvariable.CodeVariable;
 import lombok.Data;
+import org.apache.commons.lang.StringUtils;
 
 import javax.servlet.http.HttpServletRequest;
+import java.io.BufferedInputStream;
 import java.io.File;
+import java.io.FileInputStream;
 import java.io.IOException;
 
 public class VerificationCode {
@@ -35,16 +38,28 @@ public class VerificationCode {
         int height = 40;
         int codeCount = 5;
         int circleCount = 25;
-        int ran = (int)(Math.random()*10+1);
-        File imageFolder= new File(request.getServletContext().getRealPath("img/verificationcode"));
+
+        //删除原来的验证码图片,避免图片名重复导致刷新失败
+       if(CodeVariable.VERIFICATION_CODE_IMAGE_NAME != null){
+           File imageFolderDelete = new File(request.getServletContext().getRealPath("img/verificationcode")); //获取图片路径、
+           File file = new File(imageFolderDelete,CodeVariable.VERIFICATION_CODE_IMAGE_NAME+".png");
+           BufferedInputStream in = new BufferedInputStream(new FileInputStream(file));
+           in.close();        //关闭流，避免没关闭流导致删除失败
+           file.delete();  //删除图片
+       }
+
+        int ran = (int)(Math.random()*1000000+1);             //取1~1000000内的随机数
+        CodeVariable.VERIFICATION_CODE_IMAGE_NAME = ran;      //将图片名称存入临时变量
+        File imageFolder = new File(request.getServletContext().getRealPath("img/verificationcode"));
         File file = new File(imageFolder,ran+".png");
+
         CircleCaptcha captcha = CaptchaUtil.createCircleCaptcha(width, height, codeCount, circleCount);
         System.out.println("当前验证码图片名:"+ran);
         System.out.println("圆圈干扰验证码是:" + captcha.getCode());
         CodeVariable.VERIFICATION_CODE = captcha.getCode();          //存入临时变量
         /* String path = "d:/captcha2.png";*/
         captcha.write(file);
-        return ran;
+        return ran;                                                 //返回图片名
     }
 
 
