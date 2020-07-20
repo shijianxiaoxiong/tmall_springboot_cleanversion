@@ -64,11 +64,6 @@ public class ForeRESTController {
     public Object register(@RequestBody User user,HttpServletRequest request) throws IOException {
         String message = null;
         String verificationCode = user.getVerificationCode();
-        if(StringUtils.isEmpty(verificationCode) && StringUtils.isBlank(verificationCode)){
-            message = "验证码不允许为空!";
-            Integer ran = VerificationCode.test2(request);     //刷新验证码
-            return  Result.fail(message,ran);
-        }
         if(!CodeVariable.VERIFICATION_CODE.equals(verificationCode)){
             Integer ran = VerificationCode.test2(request);     //刷新验证码
             message = "验证码错误!";
