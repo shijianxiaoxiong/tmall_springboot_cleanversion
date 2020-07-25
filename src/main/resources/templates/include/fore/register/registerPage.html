@@ -63,7 +63,7 @@
                     },
                     //刷新验证码
                     reloadCode:function () {
-                        let url = "fore_verificationCode";
+                        var url = "fore_verificationCode";
                         axios.post(url).then(function(response) {
                             var result = response.data;
                             var ran = result.data;
@@ -85,7 +85,6 @@
                 <span class="errorMessage"></span>
             </div>
         </div>
-
 
         <table class="registerTable" align="center">
             <tr>
