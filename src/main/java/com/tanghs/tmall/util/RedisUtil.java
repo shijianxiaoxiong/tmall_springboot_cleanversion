@@ -11,9 +11,10 @@ import java.util.Set;
 import java.util.concurrent.TimeUnit;
 
 /**
- * Redis 工具类
- * @Author huang zhikun
- * @Date 20190118
+ * @Author tanghs
+ * @Description: Redis工具类
+ * @Date: 2020/8/6 11:15
+ * @Version 1.0
  */
 //配置 bean，加入spring容器
 @Component
