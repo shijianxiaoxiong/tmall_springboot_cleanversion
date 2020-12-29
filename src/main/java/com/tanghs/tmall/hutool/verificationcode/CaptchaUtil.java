@@ -69,7 +69,7 @@ public class CaptchaUtil {
 	public static ShearCaptcha createShearCaptcha(int width, int height) {
 		return new ShearCaptcha(width, height);
 	}
-	
+
 	/**
 	 * 创建扭曲干扰的验证码，默认5位验证码
 	 * 
