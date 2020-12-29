@@ -7,7 +7,6 @@ import javax.persistence.*;
 import lombok.Getter;
 import lombok.Setter;
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
-import org.springframework.data.elasticsearch.annotations.Document;
 
 
 @Getter
@@ -15,7 +14,7 @@ import org.springframework.data.elasticsearch.annotations.Document;
 @Entity
 @Table(name = "product")
 @JsonIgnoreProperties({ "handler","hibernateLazyInitializer"})
-@Document(indexName = "tmall_springboot",type = "product")
+//@Document(indexName = "tmall_springboot",type = "product")
 public class Product {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
