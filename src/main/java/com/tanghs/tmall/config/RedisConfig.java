@@ -1,3 +1,4 @@
+/*
 package com.tanghs.tmall.config;
 
 import com.tanghs.tmall.util.FastJsonRedisSerializer;
@@ -61,23 +62,30 @@ public class RedisConfig extends CachingConfigurerSupport {
     }
 
 
-    /**
+    */
+/**
      * springboot2.x 使用LettuceConnectionFactory 代替 RedisConnectionFactory
      * application配置基本信息后,springboot2.x  RedisAutoConfiguration能够自动装配
      * LettuceConnectionFactory 和 RedisConnectionFactory 及其 RedisTemplate
      *
      * @param redisConnectionFactory
      * @return
-     */
-    /*@Bean
+     *//*
+
+    */
+/*@Bean
     public RedisTemplate<String, Object> redisTemplate(LettuceConnectionFactory redisConnectionFactory) {
-       *//* RedisTemplate<String, Object> redisTemplate = new RedisTemplate<String, Object>();
+       *//*
+*/
+/* RedisTemplate<String, Object> redisTemplate = new RedisTemplate<String, Object>();
         redisTemplate.setKeySerializer(new StringRedisSerializer());
         redisTemplate.setValueSerializer(new GenericJackson2JsonRedisSerializer());
         redisTemplate.setHashKeySerializer(new StringRedisSerializer());
         redisTemplate.setHashValueSerializer(new GenericJackson2JsonRedisSerializer());
         redisTemplate.setConnectionFactory(redisConnectionFactory);
         return redisTemplate;*//*
+*/
+/*
 
         RedisTemplate<String, Object> template = new RedisTemplate();
         Jackson2JsonRedisSerializer<Object> jsonSerial = new Jackson2JsonRedisSerializer(Object.class);
@@ -98,8 +106,10 @@ public class RedisConfig extends CachingConfigurerSupport {
 
 
 
-*/
+*//*
+
 
 
 }
 
+*/
